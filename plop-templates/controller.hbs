@@ -1,0 +1,42 @@
+import { Route, Controller, Get, Path, Post, SuccessResponse, Body } from 'tsoa';
+import { inject, injectable } from 'tsyringe';
+
+import { Create{{pascalCase name}}Dto } from './dto/create-{{name}}.dto';
+import { {{pascalCase name}}I } from './models/{{name}}.schema';
+import { {{pascalCase name}}Service } from './{{name}}.service';
+
+@injectable()
+@Route('v1/{{camelCase name}}')
+export class {{pascalCase name}}Controller extends Controller {
+  constructor(@inject({{pascalCase name}}Service) private {{camelCase name}}Service: {{pascalCase name}}Service) {
+    super();
+  }
+
+  @Get('/get/{id}')
+  @SuccessResponse('200', 'OK')
+  async get{{pascalCase name}}(@Path() id: string): Promise<{{pascalCase name}}I> {
+    this.setStatus(200);
+    return this.{{camelCase name}}Service.findOne(id);
+  }
+
+  @Get('/all')
+  @SuccessResponse('200', 'OK')
+  async getAll{{pascalCase name}}s(): Promise<{{pascalCase name}}I[]> {
+    this.setStatus(200);
+    return this.{{camelCase name}}Service.findAll();
+  }
+
+  @Post()
+  @SuccessResponse('201', 'Created')
+  async create{{pascalCase name}}(@Body() {{camelCase name}}: Create{{pascalCase name}}Dto): Promise<{{pascalCase name}}I> {
+    this.setStatus(201);
+    return this.{{camelCase name}}Service.create({{camelCase name}});
+  }
+
+  @Post('/delete/{id}')
+  @SuccessResponse('200', 'OK')
+  async delete{{pascalCase name}}(@Path() id: string): Promise<{{pascalCase name}}I> {
+    this.setStatus(200);
+    return this.{{camelCase name}}Service.remove(id);
+  }
+}
