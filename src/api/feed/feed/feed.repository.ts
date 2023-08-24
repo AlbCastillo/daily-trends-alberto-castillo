@@ -1,10 +1,10 @@
 import { autoInjectable, singleton } from 'tsyringe';
 
 import { CreateFeedDto } from './dto/create-feed.dto';
-import { FindFeedInputDto } from './dto/find-feed.dto';
 import { UpdatedInputDto } from './dto/update-feed.dto';
 import FeedModel from './models/feed.model';
 import { FeedI } from './models/feed.schema';
+import { MongoosePaginateParamsI } from '../../../utils/mongoose.utils';
 
 @singleton()
 @autoInjectable()
@@ -24,15 +24,22 @@ export class FeedRepository {
     );
   }
 
-  async get(id: string) {
-    return FeedModel.findById(id);
+  async findOne(filter: object): Promise<FeedI | null> {
+    return FeedModel.findOne(filter);
   }
 
-  async findAll(search: FindFeedInputDto = {}) {
-    return FeedModel.find(search);
+  async findAll(
+    search: object = {},
+    paginateParams: MongoosePaginateParamsI,
+  ): Promise<FeedI[]> {
+    return FeedModel.find(search)
+      .sort(paginateParams.sortOptions)
+      .skip(paginateParams.skip)
+      .limit(paginateParams.take)
+      .exec();
   }
 
-  async count(search: FindFeedInputDto = {}) {
+  async count(search: object = {}) {
     return FeedModel.count(search);
   }
 }
