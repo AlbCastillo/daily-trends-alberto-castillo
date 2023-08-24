@@ -1,4 +1,11 @@
-import { IsIn, IsMongoId, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsIn,
+  IsMongoId,
+  IsNumber,
+  IsObject,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class FindFeedInputDto {
   @IsMongoId()
@@ -14,9 +21,12 @@ export class FindFeedInputDto {
   @IsOptional()
   newspaper?: string;
 
-  @IsString()
+  @IsObject()
   @IsOptional()
-  date?: string;
+  dates?: {
+    start: string;
+    end: string;
+  };
 }
 
 export class ListFeedInputDto {
