@@ -1,4 +1,6 @@
 import { Schema, Document } from 'mongoose';
+
+import { getFeedDefaultName } from '../../../../utils/date.utils';
 export interface ArticleI {
   title: string;
   content: string;
@@ -17,7 +19,7 @@ export const FeedSchema: Schema<FeedI> = new Schema<FeedI>(
       type: String,
       required: true,
       unique: true,
-      default: () => `Daily news ${new Date().toUTCString()}`,
+      default: getFeedDefaultName(),
     },
     newspaper: {
       type: String,
