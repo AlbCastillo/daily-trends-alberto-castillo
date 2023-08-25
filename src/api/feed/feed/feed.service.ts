@@ -4,6 +4,7 @@ import { CreateFeedDto } from './dto/create-feed.dto';
 import { FindFeedInputDto, ListFeedInputDto } from './dto/find-feed.dto';
 import { RemoveFeedDto } from './dto/remove-feed.dto';
 import { FeedResponseDto, MessageResponseDto } from './dto/responses.feed.dto';
+import { UpdateFeedDto } from './dto/update-feed.dto';
 import { FeedRepository } from './feed.repository';
 import { FeedI } from './models/feed.schema';
 import { ApiError } from '../../../middlewares/api.errors';
@@ -39,6 +40,12 @@ export class FeedService {
       // Throw an api error if there is an error creating the feed
       throw new ApiError(HTTP_ERRORS.INTERNAL_SERVER_ERROR, 'Error creating feed!');
     }
+  }
+
+  async update(updateFeedInput: UpdateFeedDto): Promise<FeedResponseDto> {
+    const feed = await this.feedRepository.update(updateFeedInput);
+    if (feed) return formatFeedResponse(feed);
+    throw new ApiError(HTTP_ERRORS.NOT_FOUND, 'Feed not found!');
   }
 
   /**
