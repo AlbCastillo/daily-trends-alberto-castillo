@@ -1,42 +1,55 @@
-import { Route, Controller, Get, Path, Post, SuccessResponse, Body } from 'tsoa';
+import {
+  Route,
+  Controller,
+  Get,
+  Post,
+  Delete,
+  Path,
+  SuccessResponse,
+  Body,
+  Tags,
+  OperationId,
+} from 'tsoa';
 import { inject, injectable } from 'tsyringe';
 
 import { CreateFeedDto } from './dto/create-feed.dto';
+import { ListFeedInputDto } from './dto/find-feed.dto';
 import { FeedService } from './feed.service';
-import { FeedI } from './models/feed.schema';
 
 @injectable()
-@Route('v1/feed')
+@Route('/feeds')
+@Tags('Feed')
 export class FeedController extends Controller {
   constructor(@inject(FeedService) private feedService: FeedService) {
     super();
   }
 
-  @Get('/get/{id}')
-  @SuccessResponse('200', 'OK')
-  async getFeed(@Path() id: string): Promise<FeedI> {
-    this.setStatus(200);
-    return this.feedService.findOne(id);
-  }
-
-  @Get('/all')
-  @SuccessResponse('200', 'OK')
-  async getAllFeeds(): Promise<FeedI[]> {
-    this.setStatus(200);
-    return this.feedService.findAll();
-  }
-
-  @Post()
+  @Post('/create')
   @SuccessResponse('201', 'Created')
-  async createFeed(@Body() feed: CreateFeedDto): Promise<FeedI> {
-    this.setStatus(201);
-    return this.feedService.create(feed);
+  @OperationId('createFeed')
+  async create(@Body() createFeedDto: CreateFeedDto) {
+    return this.feedService.create(createFeedDto);
   }
 
-  @Post('/delete/{id}')
+  @Get('/:id')
   @SuccessResponse('200', 'OK')
-  async deleteFeed(@Path() id: string): Promise<FeedI> {
-    this.setStatus(200);
-    return this.feedService.remove(id);
+  @OperationId('findOneFeed')
+  async getById(@Path() id: string) {
+    return this.feedService.findOne({ id });
+  }
+
+  @Post('/all')
+  @SuccessResponse('200', 'OK')
+  @OperationId('findAllFeeds')
+  async getAll(@Body() listFeedInput: ListFeedInputDto) {
+    return this.feedService.findAll(listFeedInput);
+  }
+
+  @Delete('/:id')
+  @SuccessResponse('200', 'OK')
+  @OperationId('deleteFeed')
+  async deleteById(@Path() id: string) {
+    await this.feedService.remove({ id });
+    return { message: 'Feed deleted' };
   }
 }
