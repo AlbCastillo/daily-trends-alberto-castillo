@@ -2,7 +2,7 @@ import { IsMongoId } from 'class-validator';
 
 import { CreateFeedArticleDto } from './create-feed.dto';
 
-export class UpdatedInputDto {
+export class UpdateFeedDto {
   @IsMongoId()
   id: string;
 
