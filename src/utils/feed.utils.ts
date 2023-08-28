@@ -6,13 +6,11 @@ import { FeedI } from '../api/feed/feed/models/feed.schema';
  * @returns The formatted feed response.
  */
 export const formatFeedResponse = (feed: FeedI): FeedResponseDto => {
-  // Destructure the feed object and omit the _id and createdAt properties.
-  const { _id, createdAt, ...rest } = feed;
-
-  // Return a new object with the formatted properties.
   return {
-    id: _id,
-    date: createdAt,
-    ...rest,
+    id: feed._id,
+    date: feed.createdAt,
+    name: feed.name,
+    newspaper: feed.newspaper,
+    articles: feed.articles,
   };
 };
