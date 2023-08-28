@@ -1,7 +1,7 @@
 {
-  "name": "express-typescript-tsoa-boilerplate",
+  "name": "daily-trends-alberto-castillo",
   "version": "1.0.0",
-  "description": "Boilerplate to build Express API REST quickly",
+  "description": "Test Level Daily Trends",
   "scripts": {
     "dev": "concurrently \"nodemon\" \"nodemon -x tsoa spec-and-routes\"",
     "clean:routes": "rimraf src/tsoa_generated coverage build tmp",
