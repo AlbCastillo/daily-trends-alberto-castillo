@@ -6,7 +6,6 @@ import { RemoveFeedDto } from './dto/remove-feed.dto';
 import { FeedResponseDto, MessageResponseDto } from './dto/responses.feed.dto';
 import { UpdateFeedDto } from './dto/update-feed.dto';
 import { FeedRepository } from './feed.repository';
-import { FeedI } from './models/feed.schema';
 import { ApiError } from '../../../middlewares/api.errors';
 import { formatFeedResponse } from '../../../utils/feed.utils';
 import { HTTP_ERRORS } from '../../../utils/http.errors.utils';
@@ -104,9 +103,7 @@ export class FeedService {
    * @returns A paginated response containing the list of feeds.
    * @throws {ApiError} If there is an error finding feeds.
    */
-  async findAll(
-    listFeedInput: ListFeedInputDto,
-  ): Promise<MongoosePaginationResponse<FeedI>> {
+  async findAll(listFeedInput: ListFeedInputDto): Promise<MongoosePaginationResponse> {
     try {
       // Generate the search query based on the provided search criteria
       const search = this.whereFieldGenerator(listFeedInput.search);

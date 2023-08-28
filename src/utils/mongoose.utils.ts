@@ -11,8 +11,8 @@ export interface MongoosePaginateParamsI {
   perPage: number;
 }
 
-export interface MongoosePaginationResponse<T> {
-  data: T[];
+export interface MongoosePaginationResponse {
+  data: any[];
   page: number;
   perPage: number;
   items: number;
@@ -79,7 +79,7 @@ export const paginationResponse = (
   data: any[],
   totalItems: number,
   paginateParams: MongoosePaginateParamsI,
-): MongoosePaginationResponse<any> => {
+): any => {
   const { page, take, pages, next, prev } = paginateParams;
   const perPage = take || totalItems;
 

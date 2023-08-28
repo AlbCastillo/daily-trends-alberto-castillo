@@ -1,7 +1,7 @@
 import { autoInjectable, singleton } from 'tsyringe';
 
 import { CreateFeedDto } from './dto/create-feed.dto';
-import { UpdatedInputDto } from './dto/update-feed.dto';
+import { UpdateFeedDto } from './dto/update-feed.dto';
 import FeedModel from './models/feed.model';
 import { FeedI } from './models/feed.schema';
 import { MongoosePaginateParamsI } from '../../../utils/mongoose.utils';
@@ -17,7 +17,7 @@ export class FeedRepository {
     return FeedModel.findByIdAndDelete(id);
   }
 
-  async update(updateFeedInput: UpdatedInputDto): Promise<FeedI | null> {
+  async update(updateFeedInput: UpdateFeedDto): Promise<FeedI | null> {
     return FeedModel.findOneAndUpdate(
       { _id: updateFeedInput.id },
       updateFeedInput.articles,
