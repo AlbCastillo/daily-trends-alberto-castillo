@@ -36,8 +36,6 @@ export class FeedService {
       // Return the feed
       return feed;
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
       // Throw an api error if there is an error creating the feed
       throw new ApiError(HTTP_ERRORS.INTERNAL_SERVER_ERROR, 'Error creating feed!');
     }
@@ -46,13 +44,9 @@ export class FeedService {
   async update(updateFeedInput: UpdateFeedDto): Promise<FeedResponseDto> {
     try {
       const feed = await this.feedRepository.update(updateFeedInput);
-      // eslint-disable-next-line no-console
-      console.log(updateFeedInput, feed);
       if (feed) return formatFeedResponse(feed);
       throw new ApiError(HTTP_ERRORS.NOT_FOUND, 'Feed not found!');
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
       // Throw an api error if there is an error creating the feed
       throw new ApiError(HTTP_ERRORS.INTERNAL_SERVER_ERROR, 'Error updating feed!');
     }
@@ -101,8 +95,6 @@ export class FeedService {
       // If feed is not found, throw an error
       throw new ApiError(HTTP_ERRORS.NOT_FOUND, 'Feed not found!');
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
       // If there is an error, throw an internal server error
       throw new ApiError(HTTP_ERRORS.INTERNAL_SERVER_ERROR, 'Error finding feed!');
     }
