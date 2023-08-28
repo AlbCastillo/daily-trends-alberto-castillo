@@ -1,14 +1,15 @@
-import { IsString, IsUrl } from 'class-validator';
+import { IsOptional, IsString, IsUrl } from 'class-validator';
 
 export class CreateFeedArticleDto {
   @IsString()
   title: string;
 
   @IsString()
-  content: string;
+  @IsOptional()
+  summary?: string;
 
   @IsUrl()
-  link: string;
+  url: string;
 }
 export class CreateFeedDto {
   @IsString()
