@@ -1,4 +1,4 @@
-# Express Typescript TSOA Boilerplate Mongoose
+# Daily Trends Alberto Castillo
 
 This is a boilerplate for quickly building RESTful APIs using Node.js, Express, TSOA, and Typescript.
 
@@ -8,17 +8,15 @@ In this branch of the boilerplate, we will use MongoDB as the database and Mongo
 
 ## Table of Contents
 
-- [Express Typescript TSOA Boilerplate Mongoose](#express-typescript-tsoa-boilerplate-mongoose)
+- [Daily Trends Alberto Castillo](#daily-trends-alberto-castillo)
   - [Table of Contents](#table-of-contents)
   - [Interesting Dependencies](#interesting-dependencies)
   - [Getting Started](#getting-started)
     - [Installation](#installation)
-    - [Build a New Domain Using Plop](#build-a-new-domain-using-plop)
     - [Swagger Documentation](#swagger-documentation)
-    - [Husky Hook](#husky-hook)
     - [Available Scripts](#available-scripts)
     - [Src files tree](#src-files-tree)
-- [Inspirations](#inspirations)
+- [Boilerplate used](#boilerplate-used)
 - [License](#license)
 
 ## Interesting Dependencies
@@ -58,69 +56,39 @@ nodemon
 tsoa
 ```
 
-Install the project dependencies using yarn:
+**Install the project dependencies using yarn:**
 
 ```bash
 yarn install
 ```
 
-Rename the file `.env.example` to `.env` (Edit the file if needed). You can use the following command:
+**Rename the file `.env.example` to `.env` (Edit the file if needed). You can use the following command:**
 
 ```bash
 cp .env.example .env
 ```
 
-Prepare Husky hooks:
+**Build the TSOA routes:**
 
-```bash
-yarn prepare:husky
-```
-
-Build the TSOA routes:
+This step is important because TSOA uses this command to build the routes and OpenAPI (Swagger) documentation.
 
 ```bash
 yarn build
 ```
 
-Run the application with live reloading:
+**Run the application with live reloading:**
 
 ```bash
 yarn dev
 ```
 
-After that, go to: `http://localhost:8080`
-
-### Build a New Domain Using Plop
-
-Execute the following command:
-
-```bash
-yarn plop:domain
-```
-
-Follow the instructions in the terminal.
-
-The command will generate the following files (domain and version are prompts' inputs):
-
-- **Model**: `src/api/v{{apiVersion}}/{{domain}}/models/{{domain}}.model.ts`
-- **Schema**: `src/api/v{{apiVersion}}/{{domain}}/models/{{domain}}.schema.ts`
-- **Create Dto**: `src/api/v{{apiVersion}}/{{domain}}/dto/create-{{domain}}.dto.ts`
-- **Service**: `src/api/v{{apiVersion}}/{{domain}}/{{domain}}.service.ts`
-- **Controller**: `src/api/v{{apiVersion}}/{{domain}}.controller.ts`
+After that, go to: `http://localhost:8095`
 
 ### Swagger Documentation
 
-API Documentation is automatically generated and hosted under `/api-doc`.
+API Documentation is automatically on the route tsoa_generated/swagger.json after executes the command `yarn build`
 
-To update your API Documentation, modify the file `src/swagger.json`.
-
-Another option is to use the documentation generated with [TSOA](https://tsoa-community.github.io/docs/live-reloading.html#installing-swagger-ui-express).
-
-### Husky Hook
-
-**pre-commit**: Execute the command `yarn lint:fix` before committing.
-
-Avoid the hook using `git commit -m "Your message" --no-verify`.
+The API Documentation runs under `http://localhost:8095/docs`
 
 ### NodeJS Security Cheat Sheet
 
@@ -133,54 +101,56 @@ This template uses the NodeJS Security Cheat Sheet from OWASP.
 - `yarn lint:fix`: Lint and automatically fix your TypeScript code.
 - `yarn dev`: Run the server locally.
 - `yarn clean`: Remove build, tsoa_generated, and coverage folders.
-- `yarn test`: Run all tests.
-- `yarn test:unit`: Run unit tests.
-- `yarn test:integration`: Run integration tests.
 - `yarn plop:module`: Generate a new module for the API with a simple CRUD.
-- `yarn prepare:husky`: Prepare Husky hooks.
 
 ### SRC files tree
 
+```txt
+  📦src
+  ┣ 📂api
+  ┃ ┗ 📂feed
+  ┃ ┃ ┗ 📂feed
+  ┃ ┃ ┃ ┣ 📂dto
+  ┃ ┃ ┃ ┃ ┣ 📜create-feed.dto.ts
+  ┃ ┃ ┃ ┃ ┣ 📜find-feed.dto.ts
+  ┃ ┃ ┃ ┃ ┣ 📜remove-feed.dto.ts
+  ┃ ┃ ┃ ┃ ┣ 📜responses.feed.dto.ts
+  ┃ ┃ ┃ ┃ ┗ 📜update-feed.dto.ts
+  ┃ ┃ ┃ ┣ 📂models
+  ┃ ┃ ┃ ┃ ┣ 📜feed.model.ts
+  ┃ ┃ ┃ ┃ ┗ 📜feed.schema.ts
+  ┃ ┃ ┃ ┣ 📜feed.controller.ts
+  ┃ ┃ ┃ ┣ 📜feed.repository.ts
+  ┃ ┃ ┃ ┗ 📜feed.service.ts
+  ┣ 📂commons
+  ┃ ┗ 📜types.ts
+  ┣ 📂logging
+  ┃ ┗ 📜winston.logger.ts
+  ┣ 📂middlewares
+  ┃ ┣ 📜api.errors.ts
+  ┃ ┣ 📜authentication.ts
+  ┃ ┣ 📜morgan.logger.ts
+  ┃ ┗ 📜sanitizer.ts
+  ┣ 📂tsoa_generated
+  ┃ ┣ 📜routes.ts
+  ┃ ┗ 📜swagger.json
+  ┣ 📂utils
+  ┃ ┣ 📜date.utils.ts
+  ┃ ┣ 📜feed.utils.ts
+  ┃ ┣ 📜http.errors.utils.ts
+  ┃ ┣ 📜mongoose.utils.ts
+  ┃ ┗ 📜sum.ts
+  ┣ 📜app.ts
+  ┣ 📜config.ts
+  ┣ 📜ioc.ts
+  ┣ 📜mongoose.ts
+  ┣ 📜server.ts
+  ┗ 📜swagger.json
 ```
-📦src
- ┣ 📂api
- ┃ ┗ 📂v1
- ┃ ┃ ┗ 📂user
- ┃ ┃ ┃ ┣ 📂dto
- ┃ ┃ ┃ ┃ ┗ 📜create-user.dto.ts
- ┃ ┃ ┃ ┣ 📂models
- ┃ ┃ ┃ ┃ ┣ 📜user.model.ts
- ┃ ┃ ┃ ┃ ┗ 📜user.schema.ts
- ┃ ┃ ┃ ┣ 📜user.controller.ts
- ┃ ┃ ┃ ┗ 📜user.service.ts
- ┣ 📂logging
- ┃ ┗ 📜winston.logger.ts
- ┣ 📂middlewares
- ┃ ┣ 📜api.errors.ts
- ┃ ┣ 📜authentication.ts
- ┃ ┣ 📜morgan.logger.ts
- ┃ ┗ 📜sanitizer.ts
- ┣ 📂tsoa_generated(Generated with command yarn build)
- ┃ ┣ 📜routes.ts
- ┃ ┗ 📜swagger.json
- ┣ 📂utils
- ┃ ┣ 📜http.errors.ts
- ┃ ┗ 📜sum.ts
- ┣ 📜app.ts
- ┣ 📜config.ts
- ┣ 📜ioc.ts
- ┣ 📜mongoose.ts
- ┣ 📜server.ts
- ┗ 📜swagger.json
- ```
 
-## Inspirations
+## Boilerplate used
 
-- [hagopj13/node-express-boilerplate](https://github.com/hagopj13/node-express-boilerplate)
-- [danielfsouse/express-rest-boilerplate](https://github.com/danielfsousa/express-rest-boilerplate)
-- [vassalloandrea/better-logs-for-express](https://dev.to/vassalloandrea/better-logs-for-expressjs-using-winston-and-morgan-with-typescript-516n)
-- [mert-turkmenoglu/dependency-injection-in-typescript](https://levelup.gitconnected.com/dependency-injection-in-typescript-2f66912d143c)
-- [NodeJS Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Nodejs_Security_Cheat_Sheet.html)
+- [albcastillo/express-ts-tsoa-boilerplate-mongoose](https://github.com/AlbCastillo/express-ts-tsoa-boilerplate-mongoose)
 
 ## License
 
