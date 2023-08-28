@@ -60,7 +60,8 @@
   "dependencies": {
     "@tsoa/runtime": "^5.0.0",
     "@types/helmet": "^4.0.0",
-    "axios": "^1.4.0",
+    "axios": "^1.5.0",
+    "cheerio": "^1.0.0-rc.12",
     "class-validator": "^0.14.0",
     "cors": "^2.8.5",
     "dotenv": "^16.1.3",

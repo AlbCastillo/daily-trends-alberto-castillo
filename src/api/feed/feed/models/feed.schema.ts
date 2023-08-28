@@ -3,8 +3,8 @@ import { Schema, Document } from 'mongoose';
 import { getFeedDefaultName } from '../../../../utils/date.utils';
 export interface ArticleI {
   title: string;
-  content: string;
-  link: string;
+  summary: string;
+  url: string;
 }
 export interface FeedI extends Document {
   name: string;
@@ -22,6 +22,7 @@ export const FeedSchema: Schema<FeedI> = new Schema<FeedI>(
     },
     newspaper: {
       type: String,
+      index: true,
       required: true,
     },
     articles: [

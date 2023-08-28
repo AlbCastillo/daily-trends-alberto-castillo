@@ -13,6 +13,10 @@ interface Config {
   JWT: {
     SECRET: string;
   };
+  NEWSPAPER: {
+    EL_MUNDO: string;
+    EL_PAIS: string;
+  };
 }
 
 export const CONFIG: Config = {
@@ -26,5 +30,9 @@ export const CONFIG: Config = {
   },
   JWT: {
     SECRET: process.env.JWT_SECRET || 'your-jwt-secret',
+  },
+  NEWSPAPER: {
+    EL_MUNDO: process.env.URL_ELMUNDO || 'https://www.elmundo.es',
+    EL_PAIS: process.env.URL_ELPAIS || 'https://elpais.com',
   },
 };
