@@ -12,7 +12,7 @@ export class CreateFeedArticleDto {
 }
 export class CreateFeedDto {
   @IsString()
-  name: string;
+  newspaper: string;
 
   articles: CreateFeedArticleDto[];
 }
