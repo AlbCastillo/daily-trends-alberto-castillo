@@ -70,7 +70,7 @@ app.use(morganMiddlewareLogger);
 
 // SWAGGER DOCUMENTATION
 app.use('/docs', swaggerUi.serve, async (_req: Request, res: Response) => {
-  return res.send(swaggerUi.generateHTML(await import('./swagger.json')));
+  return res.send(swaggerUi.generateHTML(await import('./tsoa_generated/swagger.json')));
 });
 
 export default app;
