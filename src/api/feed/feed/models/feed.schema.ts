@@ -18,11 +18,11 @@ export const FeedSchema: Schema<FeedI> = new Schema<FeedI>(
     name: {
       type: String,
       required: true,
-      unique: true,
       default: getFeedDefaultName(),
     },
     newspaper: {
       type: String,
+      required: true,
     },
     articles: [
       {
