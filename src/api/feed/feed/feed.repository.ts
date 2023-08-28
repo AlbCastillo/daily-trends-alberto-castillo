@@ -18,10 +18,10 @@ export class FeedRepository {
   }
 
   async update(updateFeedInput: UpdateFeedDto): Promise<FeedI | null> {
-    return FeedModel.findOneAndUpdate(
-      { _id: updateFeedInput.id },
-      updateFeedInput.articles,
-    );
+    const { id, ...rest } = updateFeedInput;
+    return FeedModel.findByIdAndUpdate(id, rest, {
+      new: true,
+    });
   }
 
   async findOne(filter: object): Promise<FeedI | null> {

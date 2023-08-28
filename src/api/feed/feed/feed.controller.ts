@@ -9,11 +9,13 @@ import {
   Body,
   Tags,
   OperationId,
+  Put,
 } from 'tsoa';
 import { inject, injectable } from 'tsyringe';
 
 import { CreateFeedDto } from './dto/create-feed.dto';
 import { ListFeedInputDto } from './dto/find-feed.dto';
+import { UpdateFeedBodyDto } from './dto/update-feed.dto';
 import { FeedService } from './feed.service';
 
 @injectable()
@@ -25,7 +27,7 @@ export class FeedController extends Controller {
   }
 
   @Post('/create')
-  @SuccessResponse('201', 'Created')
+  @SuccessResponse('200', 'OK')
   @OperationId('createFeed')
   async create(@Body() createFeedDto: CreateFeedDto) {
     return this.feedService.create(createFeedDto);
@@ -43,6 +45,13 @@ export class FeedController extends Controller {
   @OperationId('findAllFeeds')
   async getAll(@Body() listFeedInput: ListFeedInputDto) {
     return this.feedService.findAll(listFeedInput);
+  }
+
+  @Put('/:id')
+  @SuccessResponse('200', 'OK')
+  @OperationId('updateFeed')
+  async update(@Path() id: string, @Body() body: UpdateFeedBodyDto) {
+    return this.feedService.update({ id, ...body });
   }
 
   @Delete('/:id')

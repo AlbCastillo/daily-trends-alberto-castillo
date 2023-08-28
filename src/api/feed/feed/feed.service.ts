@@ -36,15 +36,26 @@ export class FeedService {
       // Return the feed
       return feed;
     } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
       // Throw an api error if there is an error creating the feed
       throw new ApiError(HTTP_ERRORS.INTERNAL_SERVER_ERROR, 'Error creating feed!');
     }
   }
 
   async update(updateFeedInput: UpdateFeedDto): Promise<FeedResponseDto> {
-    const feed = await this.feedRepository.update(updateFeedInput);
-    if (feed) return formatFeedResponse(feed);
-    throw new ApiError(HTTP_ERRORS.NOT_FOUND, 'Feed not found!');
+    try {
+      const feed = await this.feedRepository.update(updateFeedInput);
+      // eslint-disable-next-line no-console
+      console.log(updateFeedInput, feed);
+      if (feed) return formatFeedResponse(feed);
+      throw new ApiError(HTTP_ERRORS.NOT_FOUND, 'Feed not found!');
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
+      // Throw an api error if there is an error creating the feed
+      throw new ApiError(HTTP_ERRORS.INTERNAL_SERVER_ERROR, 'Error updating feed!');
+    }
   }
 
   /**
@@ -81,7 +92,6 @@ export class FeedService {
     try {
       // Generate the search criteria based on the input
       const search = this.whereFieldGenerator(findFeedInput);
-
       // Find the feed in the repository
       const feed = await this.feedRepository.findOne(search);
 
@@ -91,6 +101,8 @@ export class FeedService {
       // If feed is not found, throw an error
       throw new ApiError(HTTP_ERRORS.NOT_FOUND, 'Feed not found!');
     } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
       // If there is an error, throw an internal server error
       throw new ApiError(HTTP_ERRORS.INTERNAL_SERVER_ERROR, 'Error finding feed!');
     }
@@ -132,7 +144,7 @@ export class FeedService {
    * @param search - The search criteria.
    * @returns The query object.
    */
-  protected async whereFieldGenerator(search: FindFeedInputDto | undefined) {
+  protected whereFieldGenerator(search: FindFeedInputDto | undefined) {
     let result: any = {};
     if (search) {
       if (search.id) result = { ...result, _id: search.id };
