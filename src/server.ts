@@ -1,14 +1,15 @@
 import app from './app';
 import { CONFIG } from './config';
 import logger from './logging/winston.logger';
-import { connectMongoDB } from './mongoose';
+import { MongoDBConnection } from './mongoose';
 
 const port = CONFIG.API.PORT;
+const mongoDatabase = new MongoDBConnection(CONFIG.MONGO.URI, CONFIG.MONGO.URI_TEST);
 
 /**
  * CONNECT DATABASE
  */
-connectMongoDB();
+mongoDatabase.connectMongoDB();
 
 /**
  * SERVER RUNNING ON
