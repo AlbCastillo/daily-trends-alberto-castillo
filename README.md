@@ -82,6 +82,12 @@ yarn build
 yarn dev
 ```
 
+**Run the application:**
+
+```bash
+yarn start
+```
+
 After that, go to: `http://localhost:8095`
 
 ### Swagger Documentation
