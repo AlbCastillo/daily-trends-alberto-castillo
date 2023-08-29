@@ -4,6 +4,7 @@
   "description": "Test Level Daily Trends",
   "scripts": {
     "dev": "concurrently \"nodemon\" \"nodemon -x tsoa spec-and-routes\"",
+    "start": "nodemon ts-node src/server.ts",
     "clean:routes": "rimraf src/tsoa_generated coverage build tmp",
     "clean:modules": "rimraf node_modules",
     "clean:all": "yarn clean:modules && yarn clean:routes",
